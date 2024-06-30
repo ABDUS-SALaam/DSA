@@ -75,8 +75,74 @@ public class Sorting {
         }
         return target;
     }
+
+
+    public static void quickSort(int arr[],int start,int end){
+        if(start>=end)
+        {
+            return;
+        }
+        int pivot=partition(arr,start,end);
+        quickSort(arr, start, pivot-1);
+        quickSort(arr, pivot+1, end);
+    }
+
+
+    public static int partition(int arr[],int start,int end)
+    {
+
+        int pos=start;
+        int pivot=arr[end];
+        for(int i=start;i<=end;i++)
+        {
+            if(arr[i]<=pivot)
+            {
+                int temp=arr[pos];
+                arr[pos]=arr[i];
+                arr[i]=temp;
+                pos++;
+            }
+        }
+        return pos-1;
+
+    }
+
+
+    public static void quickSortApproach2(int arr[],int start,int end){
+        if(start>=end)
+        {
+            return;
+        }
+
+        int low=start;
+        int high=end;
+        int pivot=arr[start+(end-start)/2];
+        while (low<=high) { 
+            while(arr[low]<pivot)
+            {   
+                low++;
+            }
+            while (arr[high]>pivot) { 
+                high--;
+            }
+            if(low<=high)
+            {
+                int temp=arr[low];
+                arr[low]=arr[high];
+                arr[high]=temp;
+                low++;
+                high--;
+            }
+        }
+        quickSortApproach2(arr, start, high);
+        quickSortApproach2(arr, low, end);
+        
+    }
+
     public static void main(String[] args){
-        int[] target={7,8,5,4,3,2,1,0};
-        System.out.println("Sorted String is "+ Arrays.toString(selectionSort(target)));
+        int[] target={5,1,8,3,2,9,4};
+        // System.out.println("Sorted String is "+ Arrays.toString(selectionSort(target)));
+        quickSortApproach2(target, 0, target.length-1);
+        System.err.println(Arrays.toString(target));
     }
 }
