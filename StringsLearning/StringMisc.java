@@ -43,6 +43,7 @@ public class StringMisc {
         List<ArrayList<Integer>> outer = new ArrayList<>();
         outer.add(new ArrayList<>());
         for (int i = 0; i < target.length; i++) {
+            start=0;   
             if (i > 0 && target[i] == target[i - 1]) {
                 start = end;
             }
@@ -52,6 +53,29 @@ public class StringMisc {
                 inner.add(target[i]);
                 outer.add(inner);
             }
+        }
+        return outer;
+    }
+
+    // Return type is slighlty differnet
+    public static List<String> subSetWithoutRecurssionAndDuplicates2(int[] target) {
+        Arrays.sort(target);
+        int start = 0;
+        int end = 0;
+        List<String> outer = new ArrayList<>();
+        outer.add("");
+        for (int i = 0; i < target.length; i++) {
+            int j = 0;
+            if (i > 0 && target[i] == target[i - 1]) {
+                j = start;
+            }
+            end = outer.size();
+            for (; j < end; j++) {
+                String inner = outer.get(j);
+                inner = inner + (target[i]);
+                outer.add(inner);
+            }
+            start = end;
         }
         return outer;
     }
@@ -149,13 +173,14 @@ public class StringMisc {
         // ArrayList<String> al=new ArrayList<>();
         // subsets("", "abc", al);
 
-        // List<ArrayList<Integer>> al=subSetWithoutRecurssionAndDuplicates(new int[]{1,2,2,4});
-        //  for(ArrayList<Integer> s:al){
+        // List<ArrayList<Integer>> al = subSetWithoutRecurssionAndDuplicates(new int[]{1, 2, 1, 2});
+        // for (ArrayList<Integer> s : al) {
         //     System.out.println(Arrays.toString(s.toArray()));
         // }
+        System.out.println(Arrays.toString(subSetWithoutRecurssionAndDuplicates2(new int[]{1, 2, 1, 2}).toArray()));
         // System.out.println(Arrays.toString(combinations("23","").toArray()));
         // System.out.println(Arrays.toString(diceWithoutSimilarSets("", 4).toArray()));
-        System.out.println(Arrays.toString(letterCombinations("234").toArray()));
+        // System.out.println(Arrays.toString(letterCombinations("234").toArray()));
     }
 
 }

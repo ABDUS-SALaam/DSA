@@ -9,7 +9,9 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-class ReverseList {
+public class ReverseList {
+
+    static ListNode newHead = null;
 
     public static ListNode getNode(ListNode head, int index) {
         ListNode node = null;
@@ -213,6 +215,21 @@ class ReverseList {
         return prev;
     }
 
+    public static ListNode reverseListUsingRecurssion(ListNode currNode) {
+        if (currNode == null) {
+            newHead = null;
+            return null;
+        }
+        ListNode node = reverseListUsingRecurssion(currNode.next);
+        if (node != null) {
+            node.next = currNode;
+        } else {
+            newHead = currNode;
+        }
+        currNode.next = null;
+        return currNode;
+    }
+
     public static void main(String[] args) {
         ListNode l9 = new ListNode(90, null);
         ListNode l8 = new ListNode(80, l9);
@@ -223,8 +240,9 @@ class ReverseList {
         ListNode l3 = new ListNode(30, l4);
         ListNode l2 = new ListNode(20, l3);
         ListNode l1 = new ListNode(10, l2);
-        ListNode head = reverseAlternateKGroups(l1, 3);
-        print(head);
+        // ListNode head = reverseAlternateKGroups(l1, 3);
+        reverseListUsingRecurssion(l1);
+        print(newHead);
         // reorderList(l4);
         System.out.println("Done");
         // System.out.println(isPalindrome(l4));
